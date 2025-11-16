@@ -7,23 +7,34 @@ $(function () {
   let modalTitle = $("#modal-title");
   let arrowleft = $("#left-arrow");
   let arrowright = $("#right-arrow");
-  let filteredData = [];
 
-  function PreloadImages(data) {}
+  let filteredData = [];
+  let isFilterActive = false;
+  let Favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  function EmptyModal() {
+    modalImage.attr("src", "");
+    modalTitle.text("");
+    modalText.empty();
+  }
 
   // Hover Effect for the arrows
   arrowleft.on("mouseover", function () {
     arrowleft.attr("src", "/Assets/Images/Recipe Book/ArrowLeftHover.png");
+    arrowleft.attr("alt", "Arrow Left Hover");
   });
   arrowleft.on("mouseleave", function () {
     arrowleft.attr("src", "/Assets/Images/Recipe Book/ArrowLeft.png");
+    arrowleft.attr("alt", "Arrow Left");
   });
 
   arrowright.on("mouseover", function () {
     arrowright.attr("src", "/Assets/Images/Recipe Book/ArrowRightHover.png");
+    arrowright.attr("alt", "Arrow Right Hover");
   });
   arrowright.on("mouseleave", function () {
     arrowright.attr("src", "/Assets/Images/Recipe Book/ArrowRight.png");
+    arrowright.attr("alt", "Arrow Right");
   });
 
   function LoadPartial(element, data) {
@@ -34,13 +45,16 @@ $(function () {
 
   let indexes = [{ left: 0 }, { right: 1 }];
   function loadDataToBook(data) {
+    $(".book-text").remove();
     indexes.forEach((index) => {
       let half = Object.keys(index);
       let index1 = Object.values(index);
       let selected_data = data[index1];
       let DataDisplay = $(`
-      <div class="book-text">
-        <img src="${selected_data.image}" alt="${selected_data.name}" />
+        <div class="book-text">
+        <img src="${selected_data.image}" alt="${
+        selected_data.name
+      }" loading="lazy"/>
         <p>${selected_data.name}</p>
         <div class="ingredients">
           Ingredients:
@@ -60,10 +74,14 @@ $(function () {
         <p>Cuisine: ${selected_data.cuisine}</p>
         <p>Rating: ${selected_data.rating}</p>
         <p>Meal Type: ${selected_data.mealType}</p>
+        <button type="button" id="favorite-btn">${
+          Favorites.includes(selected_data.id) ? "Unfavorite" : "Favorite"
+        }</button>
       </div>
     `);
       let selector = `.book.${half}`;
       $(selector).prepend(DataDisplay);
+
       LoadPartial(
         $(`${selector} #ingredients-list`),
         selected_data.ingredients
@@ -74,9 +92,7 @@ $(function () {
       );
 
       $(`${selector} #ingredients-btn`).on("click", function () {
-        modalImage.attr("src", "");
-        modalTitle.text("");
-        modalText.empty();
+        EmptyModal();
         modal.addClass("open");
         document.body.style.overflow = "hidden";
 
@@ -88,9 +104,7 @@ $(function () {
       });
 
       $(`${selector} #instructions-btn`).on("click", function () {
-        modalImage.attr("src", "");
-        modalTitle.text("");
-        modalText.empty();
+        EmptyModal();
         modal.addClass("open");
         document.body.style.overflow = "hidden";
 
@@ -100,30 +114,58 @@ $(function () {
           selected_data.instructions.map((i) => `<li>${i}</li>`).join("")
         );
       });
+
+      $(`${selector} #favorite-btn`).on("click", () => {
+        if (Favorites.includes(selected_data.id)) {
+          Favorites = Favorites.filter((id) => id !== selected_data.id);
+        } else {
+          Favorites.push(selected_data.id);
+        }
+
+        localStorage.setItem("favorites", JSON.stringify(Favorites));
+        loadDataToBook(data);
+      });
     });
   }
 
   function DisplayNext(data) {
-    if (indexes[1].right < 49) {
+    if (!isFilterActive && indexes[1].right < data.length - 1) {
       indexes[0].left += 2;
       indexes[1].right += 2;
     }
-    loadDataToBook(data);
+    if (isFilterActive) {
+      if (indexes[1].right < filteredData.length - 1) {
+        indexes[0].left += 2;
+        indexes[1].right += 2;
+      }
+      loadDataToBook(filteredData);
+    } else {
+      loadDataToBook(data);
+    }
   }
 
   function DisplayPrevious(data) {
-    if (indexes[0].left > 0) {
+    if (!isFilterActive && indexes[0].left > 0) {
       indexes[0].left -= 2;
       indexes[1].right -= 2;
     }
-
-    loadDataToBook(data);
+    if (isFilterActive) {
+      if (indexes[0].left > 0) {
+        indexes[0].left -= 2;
+        indexes[1].right -= 2;
+      }
+      loadDataToBook(filteredData);
+    } else {
+      loadDataToBook(data);
+    }
   }
 
   function ApplyFilter(data) {
     let name = $("#nameInput").val().trim().toLowerCase();
     let mealType = $("#mealType").val();
     let prepTime = parseInt($("#prepTimeInput").val()) || 0;
+
+    isFilterActive = mealType !== "All" || name !== "" || prepTime !== 0;
 
     filteredData = data.filter((recipe) => {
       if (mealType == "All") {
@@ -139,20 +181,26 @@ $(function () {
       );
     });
 
-    console.log(filteredData);
-
-    $(".book-text").remove();
     loadDataToBook(filteredData);
   }
 
-  // ApplyFilter();
+  function ShowFavorites(data) {
+    let favorite_data = data.filter((recipe) => Favorites.includes(recipe.id));
+    loadDataToBook(favorite_data);
+    console.log(favorite_data);
+  }
 
   // loading the data from an external JSON File
   $.getJSON("/Assets/Scripts/Data.json", function (data) {
     loadDataToBook(data);
+
     arrowright.on("click", () => {
       $(".book-text").remove();
       DisplayNext(data);
+    });
+    arrowleft.on("click", () => {
+      $(".book-text").remove();
+      DisplayPrevious(data);
     });
 
     $("#nameInput").on("input", () => {
@@ -165,9 +213,10 @@ $(function () {
       ApplyFilter(data);
     });
 
-    arrowleft.on("click", () => {
-      $(".book-text").remove();
-      DisplayPrevious(data);
+    let favoritecheckbox = $("#favoritesInput");
+    favoritecheckbox.on("change", () => {
+      if (favoritecheckbox.is(":checked")) ShowFavorites(data);
+      else loadDataToBook(data);
     });
   }).fail(function (jqxhr, textstatus, error) {
     console.log(`Failed to load Data.json: ${textstatus}, ${error}`);
