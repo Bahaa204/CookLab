@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/Assets/Images/logo.ico"
+      type="image/x-icon"
+    />
+    <title>Cook Lab | Da3boolos</title>
+    <link rel="stylesheet" href="/Assets/CSS/Daaboolos.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <a href="/index.html" class="logo">🍳 Cooking</a>
+      <nav>
+        <a href="About.html">About</a>
+        <a href="Contact.html">Contact</a>
+        <a href="RecipeBook.html">Recipe Book</a>
+        <a href="Requestform.html">Request a Recipe</a>
+        <a href="Da3boolos.html">Ask Da3boolos</a>
+      </nav>
+    </header>
+
+    <main class="chat-container">
+      <div class="chat-window">
+        <div class="chat-messages" id="chatMessages">
+          <div class="message bot-message">
+            <div class="message-content">
+              <p>
+                Hello! I'm Daaboolos, your AI cooking assistant. Ask me anything
+                about recipes, cooking techniques, or ingredients!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <input
+            type="text"
+            id="userInput"
+            class="chat-input"
+            placeholder="Ask me a cooking question..."
+          />
+          <button id="sendBtn" class="send-btn">Send</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Gif Popup animation -->
+    <div class="gif-popup" id="gifPopup">
+      <div class="gif-backdrop"></div>
+      <div class="gif-media">
+        <img
+          src="/Assets/GIF/Daaboolos.gif"
+          alt="Daaboolos gif"
+        />
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-left">
+        <h3>Cooking</h3>
+        <div class="socials">
+          <a href="#"
+            ><img
+              src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/instagram.svg"
+              alt=""
+          /></a>
+          <a href="#"
+            ><img
+              src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/twitter.svg"
+              alt=""
+          /></a>
+          <a href="#"
+            ><img
+              src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/facebook.svg"
+              alt=""
+          /></a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <a href="#">Recipes</a>
+        <a href="#">Blog</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </footer>
+    <script src="/Assets/Scripts/daaboolos.js"></script>
+  </body>
+</html>
