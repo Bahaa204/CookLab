@@ -41,13 +41,14 @@ body {
   color: orangered;
 }
 
-main{
+main {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
 
-main > img{
+main > img {
   width: 500px;
   height: 500px;
 }
@@ -59,6 +60,7 @@ main > img{
   height: 500px;
   border-radius: 15px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -72,6 +74,7 @@ main > img{
   height: 100%;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 .chat-messages {
   flex: 1;
@@ -84,15 +87,17 @@ main > img{
 
 .message {
   display: flex;
+  flex-wrap: wrap;
   animation: slideIn 0.5s ease-out;
 }
 
 @keyframes slideIn {
-  from {
+  0% {
     opacity: 0;
     transform: translateY(10px);
   }
-  to {
+
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
@@ -187,24 +192,6 @@ main > img{
   position: relative;
 }
 
-@media (max-width: 768px) {
-  .gif-container {
-    width: 100px;
-    height: 100px;
-    bottom: -20px;
-    left: -20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .gif-container {
-    width: 70px;
-    height: 70px;
-    bottom: -15px;
-    left: -15px;
-  }
-}
-
 footer {
   display: flex;
   justify-content: space-between;
@@ -232,89 +219,6 @@ footer a:hover {
   filter: invert(100%);
 }
 
-@media (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 20px;
-  }
-
-  .chat-container {
-    max-width: 100%;
-    height: 400px;
-  }
-
-  .message-content {
-    max-width: 85%;
-  }
-
-  .chat-messages {
-    padding: 15px;
-  }
-
-  .chat-input-area {
-    gap: 8px;
-    padding: 10px;
-  }
-
-  .chat-input {
-    padding: 10px 12px;
-    font-size: 13px;
-  }
-
-  .send-btn {
-    padding: 10px 20px;
-    font-size: 12px;
-  }
-
-  .gif-container {
-    width: 80px;
-    height: 80px;
-    bottom: 20px;
-    left: 20px;
-  }
-
-  .hero h1 {
-    font-size: 28px;
-  }
-
-  .hero p {
-    font-size: 14px;
-  }
-
-  .btn {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-
-  .recipes {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .recipe-card {
-    width: 90%;
-    max-width: 280px;
-  }
-
-  .about {
-    padding: 50px 20px;
-  }
-
-  footer {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-    padding: 20px;
-  }
-
-  .footer-right a {
-    display: inline-block;
-    margin: 5px 10px;
-  }
-}
-
 .gif-backdrop {
   position: absolute;
   inset: 0;
@@ -328,20 +232,17 @@ footer a:hover {
   display: none;
   justify-content: center;
   align-items: center;
-  /* background-color: red; */
 }
 
 .gif-popup.active {
   display: flex;
 }
 
-.gif-media{
+.gif-media {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #f1d2ac; */
   border-radius: 8px;
-  /* border: 3px solid #4b1b0e; */
   width: 300px;
   height: 300px;
   z-index: 1000;
@@ -354,10 +255,102 @@ footer a:hover {
   object-fit: cover;
 }
 
-/* MOBILE TWEAK */
-@media (max-width: 480px) {
-  .gif-popup {
-    width: 160px;
-    height: 160px;
+@media (max-width: 1200px) {
+  main > img {
+    width: 400px;
+    height: 400px;
+  }
+
+  .chat-container {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 20px 30px;
+  }
+
+  main {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  main > img {
+    width: 350px;
+    height: 350px;
+  }
+
+  .chat-container {
+    height: 450px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 20px;
+  }
+
+  .navbar nav a {
+    margin-left: 0;
+    margin: 5px 10px;
+  }
+
+  main > img {
+    width: 260px;
+    height: 260px;
+  }
+
+  .chat-container {
+    width: 95%;
+    height: 420px;
+    padding: 10px;
+  }
+
+  .message-content {
+    max-width: 85%;
+    font-size: 13px;
+  }
+
+  .chat-input-area {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .send-btn {
+    width: 100%;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar .logo {
+    font-size: 18px;
+  }
+
+  main > img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .chat-container {
+    height: 380px;
+  }
+
+  .message-content {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  .chat-input {
+    font-size: 14px;
   }
 }

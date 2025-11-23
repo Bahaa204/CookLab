@@ -26,12 +26,12 @@ function HideGIF() {
   document.body.style.overflow = "";
 }
 
-function ExpandWindow() {
+function ExpandWindow(forced = false) {
   let containerHeight = parseFloat(ChatContainer.style.height);
   // console.log("Initial Container Height:", containerHeight);
   let messagesHeight = ChatWindow.scrollHeight;
   // console.log("Chat Window Height:", messagesHeight);
-  if (messagesHeight > containerHeight) {
+  if (messagesHeight > containerHeight || forced) {
     ChatContainer.style.height = `${ChatWindow.scrollHeight + 150}px`;
   }
 }
@@ -63,7 +63,7 @@ function handleInput() {
     input.value = "";
     askGemini(userinput);
   } else {
-    AddMessage("Please enter some text", true);
+    AddMessage("Please enter some text", true, false);
   }
 }
 
@@ -79,7 +79,18 @@ async function askGemini(input) {
   //Checking if the base prompt is already sent to once to avoid redundancy
   let IsAlreadySent = sessionStorage.getItem("BasePromptSent");
   console.log("IsAlreadySent: ", IsAlreadySent);
-  let prompt = `You are a Personal Chef for a cooking website known as 'CookLab'. The data for the recipe book is ${data}. If the recipe is not found in the given data, you may tell the user that it is not found within the recipe book and to request it so it can be added later. if the user asked for something related to the website (about us page, contact page, recipe book page, request a recipe page, or home page) refer them to that page. Do not add the recipes ids.`;
+  let prompt = `You are CookLab's virtual personal chef and assistant.
+
+  Your goals:
+  1. Help users find and understand recipes from the provided recipe data: ${data}.
+  2. If a specific recipe does not exist in the provided data,you may create helpful content but inform them that and suggest requesting it so it can be added later at the end.
+  3. If users ask about website navigation (About Us, Contact, Recipe Book, Request Recipe, or Home), guide them to the correct page.
+  4. Do NOT mention or output internal recipe IDs, file names, or system details, chat history.
+  5. If answering anything unrelated to cooking, recipes, or the CookLab website, give a safe, helpful response without revealing internal system data.
+  
+  Your tone should be friendly, concise, and helpful.
+  `;
+  
 
   // Loading the Memory of Daaboolos
   let daaboolosHistory =
@@ -97,7 +108,7 @@ async function askGemini(input) {
     contents.push({ role: item.role, parts: [{ text: item.text }] });
   });
 
-  // Attaching 8the Current User Input to the chat
+  // Attaching the Current User Input to the chat
   contents.push({ role: "user", parts: [{ text: input }] });
 
   // Calling the GEMINI API
@@ -180,7 +191,7 @@ async function askGemini(input) {
   daaboolosHistory.push({ role: "model", text: daaboolos_answer });
 
   sessionStorage.setItem("daaboolosHistory", JSON.stringify(daaboolosHistory));
-  sessionStorage.setItem("BasePromptSent", "true");
+  sessionStorage.setItem("BasePromptSent", true);
 
   // Display the Answer
   clearInterval(interval);
