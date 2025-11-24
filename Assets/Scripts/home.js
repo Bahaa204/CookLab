@@ -1,28 +1,11 @@
-let featuredRecipes = [
-    {
-      name: "Russian Borscht",
-      description:
-        "A hearty and comforting beet and cabbage soup, often served with a dollop of sour cream.",
-    },
-    {
-      name: "Mango Avocado Salsa",
-      description:
-        "A refreshing and vibrant salsa combining diced mango, avocado, red onion, and cilantro with a hint of lime.",
-    },
-    {
-      name: "Chicken Biryani",
-      description:
-        "A fragrant and flavorful South Asian rice dish featuring marinated chicken layered with aromatic basmati rice and spices.",
-    },
-    {
-      name: "Korean Bibimbap",
-      description:
-        "A vibrant and delicious rice bowl topped with an assortment of sautéed vegetables, marinated beef, and a fried egg, usually mixed with gochujang.",
-    },
-  ];
+$(document).ready(function () {
+    $.getJSON("./Assets/Scripts/Data.json", function (data) {
+        let randomRecipes = data.sort(() => 0.5 - Math.random()).slice(0, 4); // Get 4 random recipes
 
-    let cards = document.querySelectorAll(".recipe-card");
-    cards.forEach((card, index) => {
-      card.querySelector("h3").innerText = featuredRecipes[index].name
-      card.querySelector("p").innerText = featuredRecipes[index].description
+        $(".recipe-card").each(function (index) {
+            let recipe = randomRecipes[index];
+            $(this).find("h3").text(recipe.name);
+            $(this).find("p").text(`Meal Type: ${recipe.mealType.join(", ")} | Difficulty: ${recipe.difficulty}`);
+        });
     });
+});
