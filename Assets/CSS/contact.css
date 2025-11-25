@@ -1,0 +1,128 @@
+.contact-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff1e6;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form .form-group {
+    margin-bottom: 15px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #4b1b0e;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: orangered;
+    outline: none;
+}
+
+.contact-form input[type="file"] {
+    padding: 5px;
+    font-size: 14px;
+    border: none;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.contact-form input[type="file"]:hover {
+    background-color: #f0f0f0;
+}
+
+.contact-form button {
+    display: block;
+    width: 100%;
+    background-color: #993d2b;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #7a2e1f;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.modal.fade-in {
+    opacity: 1;
+}
+
+.modal.fade-out {
+    opacity: 0;
+}
+
+.modal-content {
+    background-color: #fff1e6;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(0.8);
+    animation: pop-in 0.3s ease forwards;
+}
+
+.modal-content p {
+    font-size: 16px;
+    color: #4b1b0e;
+    margin-bottom: 20px;
+}
+
+.modal-content .close-modal {
+    background-color: #993d2b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-content .close-modal:hover {
+    background-color: #7a2e1f;
+}
+
+/* Pop-in animation */
+@keyframes pop-in {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}
