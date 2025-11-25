@@ -1,5 +1,553 @@
-*{
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fae3c6;
+  color: #4b1b0e;
+  line-height: 1.6;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: #f1d2ac;
+  font-weight: bold;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+.logo {
+  color: orangered;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.navbar nav a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: #4b1b0e;
+  transition: color 0.3s ease;
+}
+
+.navbar nav a:hover {
+  color: orangered;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-text p {
+  font-size: 20px;
+  max-width: 900px;
+  max-height: 100px;
+}
+
+.Filter-Controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.Filter-Controls input,
+.Filter-Controls select,
+option {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  background-color: #fae3c6;
+  color: #4b1b0e;
+  font-weight: bold;
+}
+
+input::placeholder {
+  color: rgba(75, 27, 14, 0.7);
+}
+
+.recipe-book {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.book {
+  flex: 1 1 50%;
+  min-width: 200px;
+  max-width: 600px;
+  height: 100%;
+  aspect-ratio: 3/4;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: local;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-text {
+  position: relative;
+  top: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 550px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+.book-text img {
+  width: 150px;
+  height: 150px;
+  font-style: italic;
+  border: 5px solid #714728;
+  background-color: white;
+}
+
+.book-text button {
+  font-size: inherit;
+  font-weight: inherit;
+  color: #4b1b0e;
+  padding: 5px;
+  background-color: rgb(235, 205, 168);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.book-text ol {
+  max-width: 450px;
+}
+
+.book.right {
+  background-image: url("/Assets/Images/Recipe Book/BookRight.png");
+}
+
+.book.left {
+  background-image: url("/Assets/Images/Recipe Book/BookLeft.png");
+}
+
+.book #left-arrow,
+.book #right-arrow {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: 50px;
+  z-index: 1000;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.book.left > #left-arrow {
+  left: 35px;
+}
+
+.book.right > img {
+  right: 35px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: none;
+}
+
+.modal.open {
+  display: block;
+}
+
+.modal_backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal_dialog {
+  position: relative;
+  margin: 7vh auto 0;
+  max-width: 850px;
+  background-color: #fae3c6;
+  border-radius: 18px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 25px;
+  border: 3px solid #d4b08a;
+}
+
+.modal_media {
+  background-color: #f1d9b5;
+  padding: 15px;
+  border-radius: 18px;
+  border: 2px solid #d7b690;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 230px;
+}
+
+.modal_media img {
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 4px solid #4b1b0e;
+}
+
+.modal_body {
+  flex: 1;
+  padding: 10px;
+  font-size: 19px;
+  font-weight: 500;
+  color: #4b1b0e;
+}
+
+.modal_body h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #e64726;
+  font-weight: 700;
+}
+
+.modal_close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  background-color: #f7cfa1;
+  border: 2px solid #eab98b;
+  color: #4b1b0e;
+  cursor: pointer;
+}
+
+.modal_close:hover {
+  background: #eab98b;
+  color: #2f1209;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e64726;
+  color: white;
+  padding: 25px 60px;
+  flex-wrap: wrap;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.socials img {
+  width: 20px;
+}
+
+@media (max-width: 1200px) {
+  .hero-text p {
+    max-width: 700px;
+    font-size: 18px;
+  }
+
+  .recipe-book {
+    max-width: 1000px;
+  }
+
+  .book-text img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 20px 30px;
+  }
+
+  .navbar nav a {
+    margin-left: 12px;
+    font-size: 14px;
+  }
+
+  .Filter-Controls {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .recipe-book {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .book {
+    max-width: 500px;
+    width: 90%;
+    aspect-ratio: 4/5;
+  }
+
+  .book-text {
+    top: 40px;
+    font-size: 14px;
+  }
+
+  .book-text img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .book #left-arrow,
+  .book #right-arrow {
+    width: 80px;
+    height: 40px;
+  }
+
+  .modal_dialog {
+    max-width: 90%;
+    gap: 15px;
+    padding: 15px;
+  }
+  .modal_media {
+    min-height: 180px;
+    padding: 12px;
+  }
+
+  .modal_body {
+    font-size: 17px;
+  }
+
+  .modal_body h3 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px 20px;
+    text-align: center;
+  }
+
+  .navbar nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .navbar nav a {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    padding: 5px;
+    font-size: 13px;
+  }
+
+  .hero-text h1 {
+    font-size: 26px;
+  }
+
+  .hero-text p {
+    max-width: 95%;
+    font-size: 16px;
+  }
+
+  .Filter-Controls {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    width: 100%;
+  }
+
+  .Filter-Controls label {
+    font-size: 15px;
+  }
+
+  .Filter-Controls input,
+  .Filter-Controls select {
+    width: 90%;
+    font-size: 14px;
+  }
+
+  .recipe-book {
+    flex-direction: column;
+    padding: 10px;
+    gap: 30px;
+  }
+
+  .book {
+    width: 95%;
+    max-width: 350px;
+    aspect-ratio: 3/5;
+  }
+
+  .book-text {
+    top: 20px;
+    font-size: 13px;
+  }
+
+  .book-text img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .book #left-arrow,
+  .book #right-arrow {
+    width: 60px;
+    height: 30px;
+    bottom: 40px;
+  }
+
+  .book-text ol {
+    max-width: 280px;
+    font-size: 13px;
+  }
+
+  .modal_dialog {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .modal_media {
+    width: 100%;
+    padding: 10px;
+    min-height: 150px;
+  }
+
+  .modal_media img {
+    max-height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .modal_body {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .modal_body h3 {
+    font-size: 20px;
+  }
+
+  .modal_close {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .modal_media img {
+    max-height: 200px;
+  }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 20px 10px;
+  }
+
+  footer a {
+    margin: 5px;
+    font-size: 14px;
+  }
+
+  .socials img {
+    width: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-text h1 {
+    font-size: 22px;
+  }
+
+  .book-text {
+    font-size: 12px;
+  }
+
+  .book-text img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .book #left-arrow,
+  .book #right-arrow {
+    width: 50px;
+    height: 25px;
+  }
+
+  .modal_media img {
+    max-height: 160px;
+  }
+
+  .modal_body {
+    font-size: 15px;
+  }
+
+  .modal_body h3 {
+    font-size: 18px;
+  }
+
+  .modal_dialog {
+    padding: 12px;
+    gap: 15px;
+  }
 }
