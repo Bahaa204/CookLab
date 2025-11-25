@@ -1,27 +1,25 @@
 
-const ingredients = [
+let ingredients = [
   "chicken", "beef", "rice", "garlic", "cheese", "tomato",
   "pasta", "chocolate", "lemon", "milk", "egg", "butter"
 ];
 
-const suggestionInput = document.getElementById("suggestionInput");
-const tagsBox = document.getElementById("ingredientTags");
-const suggestionsBox = document.getElementById("suggestionsBox");
-const bear = document.getElementById("bear");
+let suggestionInput = document.getElementById("suggestionInput");
+let tagsBox = document.getElementById("ingredientTags");
+let suggestionsBox = document.getElementById("suggestionsBox");
+let bear = document.getElementById("bear");
 
 let typingTimeout;
 
 suggestionInput.addEventListener("input", () => {
-  const text = suggestionInput.value.toLowerCase();
-  const words = text.split(" ");
+  let text = suggestionInput.value.toLowerCase();
+  let words = text.split(" ");
 
-  // Reset tags
   tagsBox.innerHTML = "";
 
-  // Generate ingredient tags
   words.forEach(w => {
     if (ingredients.includes(w)) {
-      const tag = document.createElement("span");
+      let tag = document.createElement("span");
       tag.className = "tag";
       tag.textContent = w;
       tagsBox.appendChild(tag);
@@ -30,13 +28,12 @@ suggestionInput.addEventListener("input", () => {
 
   
 
-  // Auto suggestions
   suggestionsBox.innerHTML = "";
   suggestionsBox.style.display = "none";
 
   for (let key in ideas) {
     if (text.includes(key)) {
-      const div = document.createElement("div");
+      let div = document.createElement("div");
       div.textContent = ideas[key];
       suggestionsBox.style.display = "block";
 
@@ -52,56 +49,46 @@ suggestionInput.addEventListener("input", () => {
 
 
 
-// ===============================
-// AI-LIKE SUGGESTIONS
-// ===============================
-const ideas = {
+// Suggestions
+let ideas = {
   chicken: "Lemon Herb Chicken Roast",
   pasta: "Creamy Garlic Pasta",
   chocolate: "Molten Lava Cake",
   rice: "Butter Garlic Rice"
 };
 
-// ===============================
-// FLAVOR SLIDER
-// ===============================
-const flavorOutput = document.getElementById("flavorOutput");
-const flavorSlider = document.getElementById("flavorSlider");
-const flavors = ["Sweet 🍯", "Salty 🧂", "Sour 🍲", "Umami 🍪"];
-const flavorCount = flavors.length;
+// flavor slider
+let flavorOutput = document.getElementById("flavorOutput");
+let flavorSlider = document.getElementById("flavorSlider");
+let flavors = ["Sweet 🍯", "Salty 🧂", "Sour 🍲", "Umami 🍪"];
+let flavorCount = flavors.length;
 
 flavorSlider.addEventListener("input", () => {
-    const raw = parseFloat(flavorSlider.value); // 0 → 1
-    // Snap slider to nearest flavor
-    const step = 1 / (flavorCount - 1);         // e.g., 1/3 for 4 flavors
-    const nearest = Math.round(raw / step);     // nearest flavor index
+    let raw = parseFloat(flavorSlider.value);
+    let step = 1 / (flavorCount - 1);
+    let nearest = Math.round(raw / step);
     flavorOutput.textContent = flavors[nearest];
 });
 
 
-// ===============================
-// CURSOR FOLLOW — ONLY WHEN NOT TYPING
-// ===============================
+// logo follows cursor when not typing
 document.addEventListener("mousemove", (e) => {
   if (!bear.classList.contains("bear-typing")) {
-    const x = (e.clientX / window.innerWidth - 0.5) * 10;
-    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+    let x = (e.clientX / window.innerWidth - 0.5) * 10;
+    let y = (e.clientY / window.innerHeight - 0.5) * 10;
     bear.style.transform = `translate(${x}px, ${y}px)`;
   }
 });
 
-// ===============================
-// SUCCESS POPUP + CONFETTI
-// ===============================
+// Success and confetti
 document.getElementById("recipeForm").addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const popup = document.getElementById("successPopup");
+  let popup = document.getElementById("successPopup");
   popup.style.display = "block";
 
-  // Confetti burst
   for (let i = 0; i < 20; i++) {
-    const conf = document.createElement("div");
+    let conf = document.createElement("div");
     conf.classList.add("confetti");
     conf.style.left = Math.random() * 100 + "%";
     conf.style.animationDuration = 1 + Math.random() * 1 + "s";
@@ -112,8 +99,8 @@ document.getElementById("recipeForm").addEventListener("submit", (e) => {
   }
 });
 
-// Inject confetti style
-const style = document.createElement("style");
+// confetti style
+let style = document.createElement("style");
 style.textContent = `
 .confetti {
   position: fixed;
