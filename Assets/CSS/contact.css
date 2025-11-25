@@ -1,3 +1,7 @@
+.hero{
+    text-align: center;
+}
+
 .contact-form {
     max-width: 600px;
     margin: 40px auto;
@@ -63,7 +67,6 @@
     background-color: #7a2e1f;
 }
 
-/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -117,7 +120,6 @@
     background-color: #7a2e1f;
 }
 
-/* Pop-in animation */
 @keyframes pop-in {
     from {
         transform: scale(0.8);
