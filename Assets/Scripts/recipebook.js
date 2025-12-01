@@ -122,9 +122,8 @@ $(function () {
 
   function DisplayNext(data) {
     let source = isFilterActive ? filteredData : data;
-    let limit = source.length - 1;
 
-    if (indexes[1].right < limit) {
+    if (indexes[1].right < source.length - 1) {
       indexes[0].left += 2;
       indexes[1].right += 2;
     }
