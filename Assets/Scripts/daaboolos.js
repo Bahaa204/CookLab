@@ -74,7 +74,7 @@ async function askGemini(input) {
   data = JSON.stringify(data);
 
   // API Key
-  let api_key = "AIzaSyAesnHKWHC06joY6L9TwMCmiiLJnYUTF04";
+  let api_key = "";
 
   //Checking if the base prompt is already sent to once to avoid redundancy
   let IsAlreadySent = sessionStorage.getItem("BasePromptSent");
