@@ -124,11 +124,11 @@ input::placeholder {
 }
 
 .book.right {
-  background-image: url("/Assets/Images/Recipe Book/BookRight.png");
+  background-image: url("/CookLab/Assets/Images/Recipe Book/BookRight.png");
 }
 
 .book.left {
-  background-image: url("/Assets/Images/Recipe Book/BookLeft.png");
+  background-image: url("/CookLab/Assets/Images/Recipe Book/BookLeft.png");
 }
 
 .book #left-arrow,
