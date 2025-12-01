@@ -22,7 +22,7 @@ $(function () {
   // Hover Effect for the arrows
   arrowleft.on("mouseover", function () {
     $(this).css("opacity", 1);
-    $(this).attr("src", "/Assets/Images/Recipe Book/ArrowLeftHover.png");
+    $(this).attr("src", "/CookLab/Assets/Images/Recipe Book/ArrowLeftHover.png");
     $(this).attr("alt", "Arrow Left Hover");
   });
   arrowleft.on("mouseleave", function () {
@@ -31,7 +31,7 @@ $(function () {
 
   arrowright.on("mouseover", function () {
     $(this).css("opacity", 1);
-    $(this).attr("src", "/Assets/Images/Recipe Book/ArrowRightHover.png");
+    $(this).attr("src", "/CookLab/Assets/Images/Recipe Book/ArrowRightHover.png");
     $(this).attr("alt", "Arrow Right Hover");
   });
   arrowright.on("mouseleave", function () {
