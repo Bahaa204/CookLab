@@ -176,7 +176,7 @@ $(function () {
   }
 
   // loading the data from an external JSON File
-  $.getJSON("/Assets/Scripts/Data.json", function (data) {
+  $.getJSON("/CookLab/Assets/Scripts/Data.json", function (data) {
     loadDataToBook(data);
 
     arrowright.on("click", () => {
